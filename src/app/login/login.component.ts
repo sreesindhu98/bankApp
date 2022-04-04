@@ -31,10 +31,32 @@ database:any={
     console.log(this.pswd);
     
   }
-  login(){
+  //Event binding with $event
+  // login(){
+  //   // alert("Login clicked")
+  //   var acno=this.acno;
+  //   var pswd=this.pswd;
+  //  let database=this.database;
+  //  if(acno in database){
+  //    if(pswd==database[acno]["password"]){
+  //      alert("Login successful!!")
+  //    }
+  //    else{
+  //      alert("Incorrect password!")
+  //    }
+
+  //  }
+  //  else{
+  //    alert("User doesn't exist!")
+  //  }
+      
+  // }
+
+  // template referencing method
+  login(a:any,b:any){
     // alert("Login clicked")
-    var acno=this.acno;
-    var pswd=this.pswd;
+    var acno=a.value;
+    var pswd=b.value;
    let database=this.database;
    if(acno in database){
      if(pswd==database[acno]["password"]){
