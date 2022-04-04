@@ -6,12 +6,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  aim="Your data is displayed"
+  aim="Your best banking partner"
   accno="Account number please!"
   acno=""
   pswd=""
 // database
-dtabase={
+database:any={
   1000:{accno:1000,uname:"sree",password:123,balance:3000},
   1001:{accno:1000,uname:"sree",password:123,balance:4000},
   1002:{accno:1000,uname:"sree",password:123,balance:5000}
@@ -32,7 +32,22 @@ dtabase={
     
   }
   login(){
-    alert("Login clicked")
+    // alert("Login clicked")
+    var acno=this.acno;
+    var pswd=this.pswd;
+   let database=this.database;
+   if(acno in database){
+     if(pswd==database[acno]["password"]){
+       alert("Login successful!!")
+     }
+     else{
+       alert("Incorrect password!")
+     }
+
+   }
+   else{
+     alert("User doesn't exist!")
+   }
       
   }
 }
