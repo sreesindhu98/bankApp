@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,7 @@ database:any={
   1001:{accno:1000,uname:"sree",password:123,balance:4000},
   1002:{accno:1000,uname:"sree",password:123,balance:5000}
 }
-  constructor() { }
+  constructor(private route:Router) { }
 
   ngOnInit(): void {
    
@@ -40,6 +41,7 @@ database:any={
    if(acno in database){
      if(pswd==database[acno]["password"]){
        alert("Login successful!!")
+       this.route.navigateByUrl("dashboard")
      }
      else{
        alert("Incorrect password!")
