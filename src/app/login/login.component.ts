@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { DataService } from '../services/data.service';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,7 @@ database:any={
   1001:{accno:1000,uname:"sree",password:123,balance:4000},
   1002:{accno:1000,uname:"sree",password:123,balance:5000}
 }
-  constructor(private route:Router) { }
+  constructor(private route:Router, private db:DataService) { }
 
   ngOnInit(): void {
    
@@ -37,7 +38,7 @@ database:any={
     // alert("Login clicked")
     var acno=this.acno;
     var pswd=this.pswd;
-   let database=this.database;
+   let database=this.db.database;
    if(acno in database){
      if(pswd==database[acno]["password"]){
        alert("Login successful!!")
