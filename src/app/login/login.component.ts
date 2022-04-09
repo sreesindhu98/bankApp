@@ -13,46 +13,33 @@ export class LoginComponent implements OnInit {
   acno=""
   pswd=""
 // database
-database:any={
-  1000:{accno:1000,uname:"sree",password:123,balance:3000},
-  1001:{accno:1000,uname:"sree",password:123,balance:4000},
-  1002:{accno:1000,uname:"sree",password:123,balance:5000}
-}
+
   constructor(private route:Router, private db:DataService) { }
 
   ngOnInit(): void {
    
   }
-  acnoChange(event:any){
-    this.acno=event.target.value
-    console.log(this.acno);
+  // acnoChange(event:any){
+  //   this.acno=event.target.value
+  //   console.log(this.acno);
     
-  }
-  pswdChange(event:any){
-    this.pswd=event.target.value
-    console.log(this.pswd);
+  // }
+  // pswdChange(event:any){
+  //   this.pswd=event.target.value
+  //   console.log(this.pswd);
     
-  }
+  // }
   //Event binding with $event     ,  Two way binding
   login(){
     // alert("Login clicked")
     var acno=this.acno;
     var pswd=this.pswd;
-   let database=this.db.database;
-   if(acno in database){
-     if(pswd==database[acno]["password"]){
-       alert("Login successful!!")
-       this.route.navigateByUrl("dashboard")
-     }
-     else{
-       alert("Incorrect password!")
-     }
-
+   
+   const result=this.db.login(acno,pswd)
+   if(result){
+     alert("Login Successfully")
+     this.route.navigateByUrl("dashboard")
    }
-   else{
-     alert("User doesn't exist!")
-   }
-      
   }
 
   // template referencing method

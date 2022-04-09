@@ -28,4 +28,64 @@ register(uname:any,accno:any,password:any){
     return true
   }
 }
+login(acno:any,pswd:any){
+  // alert("Login clicked")
+
+ let database=this.database;
+ if(acno in database){
+   if(pswd==database[acno]["password"]){
+     return true
+   }
+   else{
+     alert("Incorrect password!")
+     return false
+   }
+
+ }
+ else{
+   alert("User doesn't exist!")
+return false
+  }
+    
+}
+deposit(acno:any,pswd:any,amt:any){
+  let amount=parseInt(amt);
+  let database=this.database;
+
+if(acno in database){
+
+if(pswd==database[acno]["password"]){
+    database[acno]["balance"]+=amount
+    return database[acno]["balance"]
+  }
+  else{
+    alert("Incorrect password");
+    return false
+  }}
+  else{
+    alert("User doesn't exist")
+    return false
+  }
+
+}
+withdraw(acno:any,pswd:any,amt:any){
+  let amount=parseInt(amt);
+  let database=this.database;
+
+if(acno in database){
+
+if(pswd==database[acno]["password"]){
+    database[acno]["balance"]-=amount
+    return database[acno]["balance"]
+  }
+  else{
+    alert("Incorrect password");
+    return false
+  }}
+  else{
+    alert("User doesn't exist")
+    return false
+  }
+
+}
 }
