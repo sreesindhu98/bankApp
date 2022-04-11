@@ -75,8 +75,14 @@ withdraw(acno:any,pswd:any,amt:any){
 if(acno in database){
 
 if(pswd==database[acno]["password"]){
+  if(database[acno]["balance"]>amount){
     database[acno]["balance"]-=amount
     return database[acno]["balance"]
+  }
+  else{
+    alert("Insufficient balance")
+    return false
+  }
   }
   else{
     alert("Incorrect password");
