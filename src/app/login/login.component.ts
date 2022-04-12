@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DataService } from '../services/data.service';
 
@@ -10,11 +11,11 @@ import { DataService } from '../services/data.service';
 export class LoginComponent implements OnInit {
   aim="Your best banking partner"
   accno="Account number please!"
-  acno=""
-  pswd=""
+  // acno=""
+  // pswd=""
 // database
 
-  constructor(private route:Router, private db:DataService) { }
+  constructor(private route:Router, private db:DataService,private fb:FormBuilder) { }
 
   ngOnInit(): void {
    
@@ -29,11 +30,23 @@ export class LoginComponent implements OnInit {
   //   console.log(this.pswd);
     
   // }
+  loginForm=this.fb.group({
+    acno:[''],
+    pswd:['']
+  })
   //Event binding with $event     ,  Two way binding
+
   login(){
     // alert("Login clicked")
-    var acno=this.acno;
-    var pswd=this.pswd;
+    var acno=this.loginForm.value.acno;
+   
+    
+    //this.acno;
+    var pswd=this.loginForm.value.pswd
+    // this.pswd;
+   
+    // console.log(this.loginForm.value);
+    
    
    const result=this.db.login(acno,pswd)
    if(result){

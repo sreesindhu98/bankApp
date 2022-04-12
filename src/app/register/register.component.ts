@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DataService } from '../services/data.service';
 
@@ -14,8 +14,8 @@ export class RegisterComponent implements OnInit {
 // uname=""
 //Reactive form
 registerForm=this.fb.group({
-  uname:[''],
-  acno:[''],
+  uname:['',[Validators.required,Validators.pattern('[a-zA-Z ]*')]],
+  acno:['',[Validators.required,Validators.pattern('[1-9 ]*')]],
   pswd:['']
 })
   constructor(private db:DataService,private router:Router,private fb:FormBuilder) { }
@@ -28,15 +28,21 @@ registerForm=this.fb.group({
    var uname=this.registerForm.value.uname;
    var pswd=this.registerForm.value.pswd;
   //  console.log(this.registerForm.value.uname);
+  if(this.registerForm.valid){
+    const result=this.db.register(uname,acno,pswd)
    
-   const result=this.db.register(uname,acno,pswd)
-   if(result){
-     alert("Registered Successfully")
-     this.router.navigateByUrl("")
-   }
-   else{
-     alert("User Already exist...Please Login")
-   }
+    if(result){
+      alert("Registered Successfully")
+      this.router.navigateByUrl("")
+    }
+    else{
+      alert("User Already exist...Please Login")
+    }
+  }
+  else{
+    alert("Invalid Form!!")
+  }
+  
 
   }
 }
