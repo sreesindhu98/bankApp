@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DataService } from '../services/data.service';
 
@@ -14,7 +14,10 @@ export class LoginComponent implements OnInit {
   // acno=""
   // pswd=""
 // database
-
+loginForm=this.fb.group({
+  acno:['',[Validators.required,Validators.pattern('[0-9 ]*')]],
+  pswd:['',[Validators.required,Validators.pattern('[a-zA-Z0-9@$# ]*')]]
+  })
   constructor(private route:Router, private db:DataService,private fb:FormBuilder) { }
 
   ngOnInit(): void {
@@ -30,10 +33,7 @@ export class LoginComponent implements OnInit {
   //   console.log(this.pswd);
     
   // }
-  loginForm=this.fb.group({
-    acno:[''],
-    pswd:['']
-  })
+  
   //Event binding with $event     ,  Two way binding
 
   login(){
@@ -48,11 +48,16 @@ export class LoginComponent implements OnInit {
     // console.log(this.loginForm.value);
     
    
-   const result=this.db.login(acno,pswd)
-   if(result){
-     alert("Login Successfully")
-     this.route.navigateByUrl("dashboard")
-   }
+  if(this.loginForm.valid){
+    const result=this.db.login(acno,pswd)
+    if(result){
+      alert("Login Successfully")
+      this.route.navigateByUrl("dashboard")
+    }
+  }
+  else{
+    alert("Invalid Form")
+  }
   }
 
   // template referencing method

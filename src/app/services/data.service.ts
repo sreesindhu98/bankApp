@@ -4,11 +4,11 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class DataService {
-
+currentUser=""
   database:any={
-    1000:{accno:1000,uname:"sree",password:123,balance:3000},
-    1001:{accno:1000,uname:"sree",password:123,balance:4000},
-    1002:{accno:1000,uname:"sree",password:123,balance:5000}
+    1000:{accno:1000,uname:"Sree",password:123,balance:3000},
+    1001:{accno:1000,uname:"Riya",password:123,balance:4000},
+    1002:{accno:1000,uname:"anu",password:123,balance:5000}
   }
   constructor() { }
 
@@ -34,6 +34,7 @@ login(acno:any,pswd:any){
  let database=this.database;
  if(acno in database){
    if(pswd==database[acno]["password"]){
+     this.currentUser=database[acno]["uname"]
      return true
    }
    else{

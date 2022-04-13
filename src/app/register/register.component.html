@@ -34,7 +34,7 @@
                           <input type="text" class="form-control" name="acno" formControlName="acno" placeholder="Account Number Please!" id="login_accno" required>
                           
                       </div>
-                      <div *ngIf="this.registerForm.get('acno')?.touched &&this.registerForm.get('acno')?.errors" style="color: red;border:white 1 px 1px;">Invalid AccountNumber</div>
+                      <div *ngIf="this.registerForm.get('acno')?.touched &&this.registerForm.get('acno')?.errors" style="color: red;border:white 1 px 1px;">Invalid Account Number</div>
 
                       <div class="input-group form-group">
                           <div class="input-group-prepend">
@@ -42,7 +42,8 @@
                           </div>
                           <input type="password"   class="form-control" name="pwd" formControlName="pswd" placeholder="password" id="login_password" required>
                       </div>
-                      
+                      <div *ngIf="this.registerForm.get('pswd')?.touched &&this.registerForm.get('pswd')?.errors" style="color: red;border:white 1 px 1px;">Invalid password</div>
+
                       <div class="form-group">
                           <input type="submit"   value="Register" class="btn float-right login_btn " style="width:50%" >
                       </div>
