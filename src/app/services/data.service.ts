@@ -4,25 +4,29 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class DataService {
-currentUser=""
+currentUser:any
+currentAcno:any
+type:any
   database:any={
-    1000:{accno:1000,uname:"Sree",password:123,balance:3000},
-    1001:{accno:1000,uname:"Riya",password:123,balance:4000},
-    1002:{accno:1000,uname:"anu",password:123,balance:5000}
+    1000:{acno:1000,uname:"Sree",password:123,balance:3000,transaction:[]},
+    1001:{acno:1000,uname:"Riya",password:123,balance:4000,transaction:[]},
+    1002:{acno:1000,uname:"anu",password:123,balance:5000,transaction:[]}
   }
+  acno: any;
   constructor() { }
 
-register(uname:any,accno:any,password:any){
+register(uname:any,acno:any,password:any){
    let database=this.database;
-  if(accno in database){
+  if(acno in database){
     return false
   }
   else{
-    database[accno]={
-    accno,
+    database[acno]={
+    acno,
     uname,
     password,
-    balance:0}
+    balance:0,
+    transaction:[]}
     console.log(database);
     
     return true
@@ -35,6 +39,10 @@ login(acno:any,pswd:any){
  if(acno in database){
    if(pswd==database[acno]["password"]){
      this.currentUser=database[acno]["uname"]
+     this.currentAcno=acno
+  
+   
+     
      return true
    }
    else{
@@ -57,6 +65,9 @@ if(acno in database){
 
 if(pswd==database[acno]["password"]){
     database[acno]["balance"]+=amount
+    database[acno]["transaction"].push({type:"CREDIT",amount:amount})
+   this.type=database[acno]["transaction"]
+
     return database[acno]["balance"]
   }
   else{
@@ -78,6 +89,9 @@ if(acno in database){
 if(pswd==database[acno]["password"]){
   if(database[acno]["balance"]>amount){
     database[acno]["balance"]-=amount
+    database[acno]["transaction"].push({type:"DEBIT",amount:amount})
+    this.type=database[acno]["transaction"]
+
     return database[acno]["balance"]
   }
   else{
@@ -94,5 +108,10 @@ if(pswd==database[acno]["password"]){
     return false
   }
 
+}
+transaction(acno:any){  
+    
+    
+  return this.database[acno].transaction
 }
 }

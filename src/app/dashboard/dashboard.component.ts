@@ -8,7 +8,7 @@ import { DataService } from '../services/data.service';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  user=""
+  user:any
 // dacno=""
 // wacno=""
 // pswd=""
@@ -53,7 +53,7 @@ withdrawForm=this.fb.group({
     var pswd=this.withdrawForm.value.pswd1
     var amount=this.withdrawForm.value.wamount
     
-    if(this.depositForm.valid){
+    if(this.withdrawForm.valid){
       const result=this.de.withdraw(acno,pswd,amount)
     if(result){
       alert(amount +"is successfully withdrawed    ... Available Balance is" +result)
