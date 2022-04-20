@@ -5,7 +5,7 @@
 
   </nav>
   <h2 style="color: white;text-align: center;">Transaction History</h2>
-  <table class="table  p-3  w-50" style="text-align:center;color: whitesmoke;margin-left: 400px;">
+  <table class="table  text-center  w-50" style="text-align:center;color: whitesmoke;margin-left: 400px;">
       <thead>
           <tr>
               <th>Type of Transaction</th>
@@ -14,12 +14,11 @@
 
       </thead>
       <tbody>
-          <tbody><tr>
-              <td>credit</td>
-              <td>1000</td></tr>
-             <tr>
-              <td>Debit</td>
-              <td>1000</td>
+          <tbody>
+             <tr *ngFor="let t of transaction">
+              <td>{{t.type}}</td>
+              <td>{{t.amount}}</td>
           </tr>
       </tbody>
   </table>
+  <a class="home" style="color:rgb(134, 231, 23);margin-left: 1000px;font-size: larger;"routerLink="/dashboard">Home</a>

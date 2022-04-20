@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { DataService } from '../services/data.service';
 
 @Component({
@@ -27,12 +28,18 @@ withdrawForm=this.fb.group({
   pswd1:['',[Validators.required,Validators.pattern('[a-zA-Z0-9@$# ]*')]],
   wamount:['',[Validators.required,Validators.pattern('[0-9]*')]],
 })
-  constructor(private de:DataService,private fb:FormBuilder) { 
+  constructor(private de:DataService,private fb:FormBuilder,private router:Router) { 
     this.user=this.de.currentUser;
   }
 
   ngOnInit(): void {
+   if(!(localStorage.getItem("currentAcno"))){
+    alert("Please Login First!!!");
+    this.router.navigateByUrl("")
+   }
+   
   }
+  
 
   deposit(){
     var acno=this.depositForm.value.dacno
@@ -62,5 +69,10 @@ withdrawForm=this.fb.group({
      else{
        alert("Invalid Form")
      }
+  }
+  logout(){
+    localStorage.removeItem("currentAcno")
+    localStorage.removeItem("currentUser")
+    this.router.navigateByUrl("")
   }
 }
