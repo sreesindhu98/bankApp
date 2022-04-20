@@ -6,8 +6,10 @@
 
   </nav>
   <h2 style="color: white;">Welcome {{user}}</h2>
+  <h3 style="color: white;">Login Details: {{localDate|date:'fullDate'}}</h3>
   <a style="color: white;" routerLink="/transaction">Transaction History</a>
-  
+  <button class="btn btn-danger" style="float:right"(click)="deleteConfirm()">Delete</button><br><br>
+  <app-deleteconfirm [item]=delacno></app-deleteconfirm>
   <div class="container col-md-12 mt-0">
       <div class="d-flex justify-content-center h-100">
           <div class="card">

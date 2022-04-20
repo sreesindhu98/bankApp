@@ -10,6 +10,8 @@ import { DataService } from '../services/data.service';
 })
 export class DashboardComponent implements OnInit {
   user:any
+  localDate:any
+  delacno:any
 // dacno=""
 // wacno=""
 // pswd=""
@@ -30,6 +32,8 @@ withdrawForm=this.fb.group({
 })
   constructor(private de:DataService,private fb:FormBuilder,private router:Router) { 
     this.user=this.de.currentUser;
+    this.localDate=Date();
+
   }
 
   ngOnInit(): void {
@@ -69,6 +73,9 @@ withdrawForm=this.fb.group({
      else{
        alert("Invalid Form")
      }
+  }
+  deleteConfirm(){
+    this.delacno=JSON.parse(localStorage.getItem("currentAcno")||'')
   }
   logout(){
     localStorage.removeItem("currentAcno")
