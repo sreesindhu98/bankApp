@@ -74,9 +74,15 @@ withdrawForm=this.fb.group({
        alert("Invalid Form")
      }
   }
-  deleteConfirm(){
+  deleteFromParent(){
     this.delacno=JSON.parse(localStorage.getItem("currentAcno")||'')
   }
+ onCancel(){
+   this.delacno=""
+ }
+ onDelete(event:any){
+   alert("Delete account number "+ event)
+ }
   logout(){
     localStorage.removeItem("currentAcno")
     localStorage.removeItem("currentUser")

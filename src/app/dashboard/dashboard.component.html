@@ -6,15 +6,15 @@
 
   </nav>
   <h2 style="color: white;">Welcome {{user}}</h2>
-  <h3 style="color: white;">Login Details: {{localDate|date:'fullDate'}}</h3>
+  <h3 style="color: white;">Login Details: {{localDate|date:'fullDate'|uppercase}}</h3>
   <a style="color: white;" routerLink="/transaction">Transaction History</a>
-  <button class="btn btn-danger" style="float:right"(click)="deleteConfirm()">Delete</button><br><br>
-  <app-deleteconfirm [item]=delacno></app-deleteconfirm>
-  <div class="container col-md-12 mt-0">
+  <button class="btn btn-danger" style="float:right; margin-right:50px"(click)="deleteFromParent()">Delete</button><br><br>
+  <app-deleteconfirm (onCancel)="onCancel()" (onDelete)="onDelete($event)"[item]=delacno></app-deleteconfirm>
+  <div [ngClass]="delacno? 'style1':''"class="container col-md-12 mt-0">
       <div class="d-flex justify-content-center h-100">
           <div class="card">
-              <div class="card-header">
-                  <h3 class="text-center">DEPOSIT FORM</h3>
+              <div  class="card-header">
+                  <h3 appHighlight class="text-center">DEPOSIT FORM</h3>
                   
               </div>
               <div class="card-body">
@@ -59,11 +59,11 @@
       </div>
   </div>
 
-  <div class="container col-md-12 mt-0">
+  <div [ngClass]="delacno? 'style1':''" class="container col-md-12 mt-0">
     <div class="d-flex justify-content-center h-100">
         <div class="card">
-            <div class="card-header">
-                <h3 class="text-center">WITHDRAW FORM</h3>
+            <div  class="card-header">
+                <h3 appHighlight class="text-center">WITHDRAW FORM</h3>
                 
             </div>
             <div class="card-body">
