@@ -49,11 +49,21 @@ loginForm=this.fb.group({
     
    
   if(this.loginForm.valid){
-    const result=this.db.login(acno,pswd)
+   this.db.login(acno,pswd)
+   .subscribe((result:any)=>{
     if(result){
-      alert("Login Successfully")
+      localStorage.setItem('currentUser',JSON.stringify(result.currentUser))
+      localStorage.setItem('currentAcno',JSON.stringify(result.currentAcno))
+      localStorage.setItem('token',JSON.stringify(result.token))
+      alert(result.message)
       this.route.navigateByUrl("dashboard")
     }
+   },
+   (result)=>{
+     alert(result.error.message)
+   }
+   )
+    
   }
   else{
     alert("Invalid Form")
@@ -77,7 +87,7 @@ loginForm=this.fb.group({
   //  }
   //  else{
   //    alert("User doesn't exist!")
-  //  }
+  //  } 
       
   // }
 }

@@ -11,9 +11,18 @@ acno:any;
 transaction:any;
 types:any
   constructor(private ts:DataService) { 
-    this.acno=this.ts.currentAcno
-    this.transaction=this.ts.transaction(this.acno)
-    this.types=this.ts.type
+    this.acno=JSON.parse(localStorage.getItem('currentAcno')||'')
+   this.ts.transaction(this.acno)
+   .subscribe((result:any)=>{
+if(result){
+  this.transaction=result.transaction
+}
+
+   },
+   result=>{
+     alert(result.error.message)
+   })
+    
     console.log(this.transaction);
     
   }

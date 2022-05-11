@@ -20,7 +20,7 @@ registerForm=this.fb.group({
 
   // Password: ['', [Validators.required, Validators.pattern('(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!#^~%*?&,.<>"\'\\;:\{\\\}\\\[\\\]\\\|\\\+\\\-\\\=\\\_\\\)\\\(\\\)\\\`\\\/\\\\\\]])[A-Za-z0-9\d$@].{7,}')]]
 })
-  constructor(private db:DataService,private router:Router,private fb:FormBuilder) { 
+  constructor(private ds:DataService,private router:Router,private fb:FormBuilder) { 
     
   }
 
@@ -33,15 +33,18 @@ registerForm=this.fb.group({
    var pswd=this.registerForm.value.pswd;
   //  console.log(this.registerForm.value.uname);
   if(this.registerForm.valid){
-    const result=this.db.register(uname,acno,pswd)
+    this.ds.register(uname,acno,pswd)
+    .subscribe((result:any)=>{
+      if(result){
+        alert(result.message)
+        this.router.navigateByUrl("")
+      }
+    },
+    (result)=>{
+      alert(result.error.message)
+    }
+    )
    
-    if(result){
-      alert("Registered Successfully")
-      this.router.navigateByUrl("")
-    }
-    else{
-      alert("User Already exist...Please Login")
-    }
   }
   else{
     alert("Invalid Form!!")

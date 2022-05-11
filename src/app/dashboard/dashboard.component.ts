@@ -31,29 +31,36 @@ withdrawForm=this.fb.group({
   wamount:['',[Validators.required,Validators.pattern('[0-9]*')]],
 })
   constructor(private de:DataService,private fb:FormBuilder,private router:Router) { 
-    this.user=this.de.currentUser;
+    this.user=JSON.parse(localStorage.getItem('currentUser')||'');
     this.localDate=Date();
 
   }
 
   ngOnInit(): void {
-   if(!(localStorage.getItem("currentAcno"))){
-    alert("Please Login First!!!");
-    this.router.navigateByUrl("")
-   }
+  //  if(!(localStorage.getItem("currentAcno"))){
+  //   alert("Please Login First!!!");
+  //   this.router.navigateByUrl("")
+  //  }
    
   }
   
-
   deposit(){
     var acno=this.depositForm.value.dacno
     var pswd=this.depositForm.value.pswd
-    var amount=this.depositForm.value.damount
+    var amt=this.depositForm.value.damount
    if(this.depositForm.valid){
-    const result=this.de.deposit(acno,pswd,amount)
+   this.de.deposit(acno,pswd,amt)
+   .subscribe((result:any)=>{
     if(result){
-      alert(amount +"is successfully added    ... Available Balance is" +result)
+      alert(result.message)
+    
     }
+  },
+  (result)=>{
+    alert(result.error.message)
+  }
+  )
+    
    }
    else{
      alert("Invalid Form")
@@ -62,13 +69,20 @@ withdrawForm=this.fb.group({
   withdraw(){
     var acno=this.withdrawForm.value.wacno
     var pswd=this.withdrawForm.value.pswd1
-    var amount=this.withdrawForm.value.wamount
+    var amt=this.withdrawForm.value.wamount
     
     if(this.withdrawForm.valid){
-      const result=this.de.withdraw(acno,pswd,amount)
-    if(result){
-      alert(amount +"is successfully withdrawed    ... Available Balance is" +result)
+     this.de.withdraw(acno,pswd,amt)
+     .subscribe((result:any)=>{
+      if(result){
+        alert(result.message)
+      
+      }
+    },
+    (result)=>{
+      alert(result.error.message)
     }
+    )
      }
      else{
        alert("Invalid Form")
@@ -81,7 +95,21 @@ withdrawForm=this.fb.group({
    this.delacno=""
  }
  onDelete(event:any){
-   alert("Delete account number "+ event)
+  this.de.onDelete(event)
+  .subscribe((result:any)=>{
+    
+    
+   if(result){
+     alert(result.message)
+     this.router.navigateByUrl("")
+   }
+ },
+ (result)=>{
+   alert(result.error.message)
+ }
+ )
+  
+  
  }
   logout(){
     localStorage.removeItem("currentAcno")
